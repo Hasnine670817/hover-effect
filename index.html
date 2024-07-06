@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Hover-effect</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+	<header>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="left-side">
+					<a href="#">Logo</a>
+				</div>
+				<div class="right-side">
+					<ul>
+						<li>
+							<a href="#Home" target="_blank"><span>Home</span></a>
+						</li>
+						<li>
+							<a href="#Blog" target="_blank"><span>Blog</span></a>
+						</li>
+						<li>
+							<a href="#Service" target="_blank"><span>Service</span></a>
+						</li>
+						<li>
+							<a href="#Contact" target="_blank"><span>Contact</span></a>
+						</li>
+						<li>
+							<a href="img.jpg" download><span>Contact</span></a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</header>
+	
+	<script>
+		
+		$(document).ready(function ($) {
+		function animateElements() {
+			$('.progressbar').each(function () {
+				var elementPos = $(this).offset().top;
+				var topOfWindow = $(window).scrollTop();
+				var percent = $(this).find('.circle').attr('data-percent');
+				var percentage = parseInt(percent, 10) / parseInt(100, 10);
+				var animate = $(this).data('animate');
+				if (elementPos < topOfWindow + $(window).height() - 30 && !animate) {
+					$(this).data('animate', true);
+					$(this).find('.circle').circleProgress({
+						startAngle: -Math.PI / 2,
+						value: percent / 100,
+						size: 180,
+						thickness: 30,
+						emptyFill: "rgba(255,255,255, 1)",
+						fill: {
+							color: 'gray'
+						}
+					}).on('circle-animation-progress', function (event, progress, stepValue) {
+						$(this).find('div').text((stepValue*100).toFixed(0) + "%");
+					}).stop();
+				}
+			});
+		}
+
+		// Show animated elements
+		animateElements();
+		$(window).scroll(animateElements);
+		
+		
+		
+
+	}); //end document ready function
+		
+	</script>
+
+</body>
+</html>
+
+
